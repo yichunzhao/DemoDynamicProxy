@@ -2,6 +2,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Proxy;
+import java.util.HashMap;
 import java.util.Map;
 
 public class DemoJdkDynamicProxy {
@@ -12,10 +13,13 @@ public class DemoJdkDynamicProxy {
         Map proxyInstance = (Map) Proxy.newProxyInstance(
                 DemoJdkDynamicProxy.class.getClassLoader(),
                 new Class[]{Map.class},
-                new DynamicInvocationHandler()
+                new DynamicInvocationHandler(new HashMap())
         );
 
         proxyInstance.put("hello", "world");
-        
+
+        logger.info("method get:"+proxyInstance.get("hello"));
+
+
     }
 }
