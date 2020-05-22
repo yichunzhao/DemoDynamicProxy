@@ -18,12 +18,15 @@ public class DynamicInvocationHandler implements InvocationHandler {
 
     public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
         LOGGER.info("Invoked method:{}", method.getName());
+        if (o instanceof Map) LOGGER.info("object is a Map type");
 
-        if(o instanceof Map) LOGGER.info("object is a Map type");
+        long firstPoint = System.nanoTime();
 
-        Object result = method.invoke(target,objects);
+        Object result = method.invoke(target, objects);
 
+        long laterPoint = System.nanoTime();
 
+        LOGGER.info("Time cost to carry out this method call by System: " + (laterPoint - firstPoint));
         return result;
     }
 }
